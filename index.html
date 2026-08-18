@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrendIA - Inteligência para suas redes</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #080b16;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 240px;
+      height: 100vh;
+      background: #0d1120;
+      border-right: 1px solid #20263a;
+      padding: 25px 15px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      padding: 0 15px 30px;
+      background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .menu button {
+      border: none;
+      background: transparent;
+      color: #9ca3b5;
+      padding: 13px 15px;
+      text-align: left;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .menu button:hover,
+    .menu button.active {
+      background: #171d32;
+      color: white;
+    }
+
+    /* ===== MAIN ===== */
+
+    .main {
+      margin-left: 240px;
+      padding: 30px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 35px;
+    }
+
+    .topbar h1 {
+      font-size: 27px;
+    }
+
+    .profile {
+      background: #12182a;
+      padding: 10px 15px;
+      border-radius: 10px;
+      color: #cbd5e1;
+    }
+
+    /* ===== CARDS ===== */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: #101629;
+      border: 1px solid #20263a;
+      border-radius: 15px;
+      padding: 22px;
+    }
+
+    .card-title {
+      color: #8f99ad;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .number {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .green {
+      color: #22c55e;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    /* ===== GRID ===== */
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 20px;
+    }
+
+    .section {
+      background: #101629;
+      border: 1px solid #20263a;
+      border-radius: 15px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    /* ===== TREND ===== */
+
+    .trend {
+      background: #151c31;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .trend strong {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .trend p {
+      color: #9ca3af;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: #182f27;
+      color: #4ade80;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+    }
+
+    /* ===== AI ===== */
+
+    .ai-box {
+      background: linear-gradient(
+        135deg,
+        rgba(124, 58, 237, 0.2),
+        rgba(37, 99, 235, 0.12)
+      );
+      border: 1px solid #49349b;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .ai-title {
+      color: #a78bfa;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .ai-box p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* ===== BUTTON ===== */
+
+    .ai-button {
+      margin-top: 15px;
+      background: linear-gradient(90deg, #7c3aed, #2563eb);
+      border: none;
+      color: white;
+      padding: 11px 16px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .ai-button:hover {
+      opacity: 0.9;
+    }
+
+    /* ===== MOBILE ===== */
+
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 75px;
+      }
+
+      .logo {
+        font-size: 0;
+      }
+
+      .logo::after {
+        content: "T";
+        font-size: 25px;
+      }
+
+      .menu button {
+        font-size: 0;
+        text-align: center;
+      }
+
+      .menu button::first-letter {
+        font-size: 20px;
+      }
+
+      .main {
+        margin-left: 75px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .main {
+        padding: 18px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar h1 {
+        font-size: 21px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MENU -->
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      TrendIA
+    </div>
+
+    <div class="menu">
+
+      <button class="active">🏠 Dashboard</button>
+
+      <button>👤 Minhas contas</button>
+
+      <button>📹 Conteúdos</button>
+
+      <button>🔥 Tendências</button>
+
+      <button>💬 Comentários</button>
+
+      <button>💡 Ideias IA</button>
+
+      <button>📊 Relatórios</button>
+
+      <button>⚙️ Configurações</button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- CONTEÚDO -->
+
+  <main class="main">
+
+    <div class="topbar">
+
+      <div>
+        <h1>Olá! 👋</h1>
+        <p style="color:#8f99ad; margin-top:7px;">
+          Aqui está o resumo das suas redes sociais.
+        </p>
+      </div>
+
+      <div class="profile">
+        👤 Minha conta
+      </div>
+
+    </div>
+
+
+    <!-- ESTATÍSTICAS -->
+
+    <div class="stats">
+
+      <div class="card">
+        <div class="card-title">
+          VISUALIZAÇÕES
+        </div>
+
+        <div class="number">
+          842.5K
+        </div>
+
+        <div class="green">
+          ↑ 28% este mês
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-title">
+          ENGAJAMENTO
+        </div>
+
+        <div class="number">
+          7.8%
+        </div>
+
+        <div class="green">
+          ↑ 1.4%
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-title">
+          SEGUIDORES
+        </div>
+
+        <div class="number">
+          24.8K
+        </div>
+
+        <div class="green">
+          ↑ 12.6%
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-title">
+          CONTEÚDOS
+        </div>
+
+        <div class="number">
+          86
+        </div>
+
+        <div class="green">
+          ↑ 18 novos
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="grid">
+
+
+      <!-- TENDÊNCIAS -->
+
+      <div class="section">
+
+        <h2>
+          🔥 Tendências encontradas
+        </h2>
+
+
+        <div class="trend">
+
+          <strong>
+            🎬 Vídeos curtos estão crescendo
+          </strong>
+
+          <p>
+            Conteúdos entre 20 e 35 segundos
+            estão apresentando maior interação
+            com seu público.
+          </p>
+
+          <span class="badge">
+            +43% de crescimento
+          </span>
+
+        </div>
+
+
+        <div class="trend">
+
+          <strong>
+            🎯 Conteúdo educativo
+          </strong>
+
+          <p>
+            Publicações que ensinam algo estão
+            recebendo mais comentários e
+            compartilhamentos.
+          </p>
+
+          <span class="badge">
+            +31% de engajamento
+          </span>
+
+        </div>
+
+
+        <div class="trend">
+
+          <strong>
+            💬 Perguntas geram comentários
+          </strong>
+
+          <p>
+            Vídeos que começam com uma pergunta
+            apresentam maior participação.
+          </p>
+
+          <span class="badge">
+            +26% comentários
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- IA -->
+
+      <div>
+
+        <div class="section">
+
+          <h2>
+            🤖 Insights da IA
+          </h2>
+
+          <div class="ai-box">
+
+            <div class="ai-title">
+              Oportunidade encontrada
+            </div>
+
+            <p>
+              Seu público está respondendo melhor
+              a conteúdos educativos e vídeos
+              curtos.
+            </p>
+
+            <br>
+
+            <p>
+              Recomendação: publique conteúdos
+              de 20–35 segundos nos próximos dias
+              e utilize uma pergunta forte nos
+              primeiros segundos.
+            </p>
+
+            <button
+              class="ai-button"
+              onclick="mostrarMensagem()">
+
+              ✨ Gerar novas ideias
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- CONTAS -->
+
+        <div class="section">
+
+          <h2>
+            👤 Contas conectadas
+          </h2>
+
+          <div class="trend">
+
+            <strong>
+              📷 Instagram
+            </strong>
+
+            <p>
+              @minhaconta
+            </p>
+
+            <span class="badge">
+              ✓ Conectada
+            </span>
+
+          </div>
+
+
+          <div class="trend">
+
+            <strong>
+              🎵 TikTok
+            </strong>
+
+            <p>
+              @minhaconta
+            </p>
+
+            <span class="badge">
+              ✓ Conectada
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    function mostrarMensagem() {
+
+      alert(
+        "🤖 O agente de IA será conectado aqui.\\n\\nSeu amigo poderá fazer a IA analisar suas contas e gerar ideias automaticamente."
+      );
+
+    }
+
+  </script>
+
+</body>
+
+</html>
